@@ -1,0 +1,27 @@
+{%extends 'pages/base.html'%}
+{%load static%}
+<body>
+{%block content%}
+<form class="form-control-sm" method="post" style="width: 400px;">
+    {% csrf_token %}
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <button type="submit">Login</button>
+    <p>Already have an account? <a href="{%url 'register' %}">sign up here</a></p>
+  </form>
+        
+
+{%endblock%}
+</body>
+</html>
+

@@ -1,0 +1,67 @@
+{% extends 'pages/base.html'%}
+
+{% block title %} computations {%endblock%}
+{%load static%}
+<body>
+<div class="bg">
+
+{%block content%}
+<div class="container-fluid" >
+
+
+
+   <div class="row">
+   <!--Side bar
+      <div class="col-sm-2">
+         <div class="col-sm-3">
+         <div class="sidebar">
+            <a href="{%url 'home' %}">Home</a>
+            <a href="{%url 'employees' %}">Employees</a>
+            <a class="active" href="{%url 'calc' %}">Computations</a>
+            <a href="{%url 'about' %}">About</a>
+            <a href="{%url 'contact_us' %}">Contact Us</a>
+        </div>
+      </div>-->
+    <!--Main Content-->
+<div class="content">
+
+<div class="table-responsive-sm" style="margin-top: 10px;">
+<table class="table table-primary table-striped table-hover" frame="hsides" rules="cols">
+
+<thead class="table-dark">
+  <tr>
+    <th>Action</th>
+    <th>Computatuion</th>
+  </tr>
+</thead>
+<tr>
+   <td>Total Employees:</td>
+   <td>{{output3|safe}}</td>
+</tr>
+<tr>
+   <td>Jobs Types:</td>
+   <td>{{output4|safe}}</td>
+</tr>
+<tr>
+   <td>Max Employee Salary:</td>
+   <td>{{output6|safe}}</td>
+</tr>
+<tr>
+   <td>Total Employees Salary:</td>
+   <td>{{output2|safe}}</td>
+</tr>
+<tr>
+   <td>Average Employee Salary:</td>
+   <td>{{output|safe}}</td>
+</tr>
+  
+</table>
+</div>
+
+{%endblock%}
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

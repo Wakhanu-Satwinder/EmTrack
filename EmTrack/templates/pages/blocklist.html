@@ -1,0 +1,41 @@
+{% extends 'pages/base.html' %}
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="/site_media/css/python_hol.css">
+  {%block title%} {%endblock%}
+</head>
+<body>
+<div id="content">
+{%block content%}
+<!--<a href="/employees/create" class="addlink">Add New Employee</a>-->
+{% if object_list %}
+    {% for employee in object_list %}
+    <table id="employee_list_table" frame="hsides" rules="cols" style="border-width: 5px">
+    <tr>
+      <!--<th>Email</th>-->
+      <th>First Name:</th><td>{{ employee.first_name }}</td> 
+    </tr>
+     <tr> <th>Last Name:</th>  <td>{{ employee.last_name }}</td> </tr>
+      <tr> <th>Phone #:</th>  <td>{{ employee.phone_number }}</td> </tr>
+      <tr> <th>Job:</th> <td>{{ employee.job }}</td> </tr>
+      <tr> <th>Hire Date:</th> <td>{{ employee.hire_date }}</td> </tr>
+      <tr> <th>Salary:</th> <td>{{ employee.salary }}</td> </tr>
+      <tr> <th>Commission %:</th> <td>{{ employee.commission_pct }}</td> </tr>
+      <!--<tr> <th>Action:</th> <td><a href="/employees/view/{{ employee.employee_id }}/">View</a></td> </tr> <br/>-->
+    
+  
+   
+      <!--<td><a href="/employees/update/{{ employee.employee_id }}/">{{ employee.email }}</a></td>-->
+      
+     
+     
+  {% endfor %}
+  </table> <br/>
+  
+{% else %}
+  <p>No employees found.</p>
+{% endif %}
+{%endblock%}
+</div>
+</body>
+</html>

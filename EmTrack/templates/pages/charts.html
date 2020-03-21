@@ -1,0 +1,70 @@
+{% extends 'pages/base.html'%}
+
+{% load static %}
+{%block title%}Charts{%endblock%}
+<body>
+{%block content%}
+<!--Page Content-->
+<div class="container-fluid">
+<h1>Visualisations</h1>
+        
+        <script type="text/javascript">
+            FusionCharts && FusionCharts.ready(function () {
+            var trans = document.getElementById("controllers").getElementsByTagName("input");
+            for (var i=0, len=trans.length; i<len; i++) {                
+                if (trans[i].type == "radio"){
+                    trans[i].onchange = function() {
+                        changeChartType(this.value);
+                    };
+                }
+            }
+        });
+        
+        function changeChartType(chartType) {
+            for (var k in FusionCharts.items) {
+                if (FusionCharts.items.hasOwnProperty(k)) {
+                    FusionCharts.items[k].chartType(chartType);
+                }
+            }
+        };
+    </script>
+    <div align="center">
+    <label style="padding: 0px 5px !important;"><b>Select The Chart Type</b></label>
+    </div>
+    <br/>
+    <div id="controllers" align="center" style="font-family:'Helvetica Neue', Arial; font-size: 14px;">
+    <label style="padding: 0px 5px !important;">
+        <input type="radio" name="div-size" checked value="column2d"/>Column 2D 
+    </label>
+    <label style="padding: 0px 5px !important;">
+        <input type="radio" name="div-size" value="column3d"/>Column 3D 
+    </label>
+    <label style="padding: 0px 5px !important;">
+        <input type="radio" name="div-size" value="pie3d"/>Pie 3D
+    </label> 
+    <label style="padding: 0px 5px !important;">
+        <input type="radio" name="div-size" value="pie2d"/>Pie 2D
+    </label>
+    <label style="padding: 0px 5px !important;">
+        <input type="radio" name="div-size" value="line"/>Line
+    </label>
+    <label style="padding: 0px 5px !important;">
+            <input type="radio" name="div-size" value="bar2d"/>Bar 2D
+    </label>
+    <div style="width: 100%; display: block;" align="center">
+
+                <div id="bar"  class="column">
+                   
+                    <div id="chart-3"></div>
+                         {{output|safe }}
+                    </div>
+                </div>
+        </div>
+         <hr>
+        </div>
+        <!--</div>
+      </div>
+      </div>-->
+{%endblock%}
+</body>
+</html>

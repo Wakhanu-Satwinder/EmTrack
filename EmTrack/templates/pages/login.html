@@ -1,0 +1,98 @@
+ <!DOCTYPE html>
+<html>
+<head>
+{% load static %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css" integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> 
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js" integrity="sha384–7aThvCh9TypR7fIc2HV4O/nFMVCBwyIUKL8XCtKE+8xgCgl/PQGuFsvShjr74PBp" crossorigin="anonymous"></script>
+<link href="http://cdn.pydata.org/bokeh/release/bokeh-1.0.4.min.css" rel="stylesheet" type="text/css">
+ <link href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.0.4.min.css" rel="stylesheet" type="text/css">
+ <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet"> <!--for fonts-->
+ <script src="http://cdn.pydata.org/bokeh/release/bokeh-1.0.4.min.js"></script>
+ <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.0.4.min.js"></script>
+
+ <!--Fussioncharts-->
+<script type="text/javascript" src="js/jquery-2.1.4.js"></script>   
+<script src="gaddafi/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'fusioncharts/js/fusioncharts.js' %}"></script>
+<script type="text/javascript" src="{% static 'fusioncharts/js/fusioncharts.charts.js' %}"></script>
+<script type="text/javascript" src="{% static 'fusioncharts/js/themes/fusioncharts.theme.zune.js' %}"></script>
+ <script type="text/javascript" src="{%static 'fusioncharts/..'%}"></script>
+ <script type="text/javascript" source="{%static 'js/dropdown.js'%}"></script>
+ <link rel="stylesheet" href="{% static 'css/emtrack.css' %}">
+ <style>
+ 	.column{
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%
+        flex:50%;
+        float: left;
+        margin: 60px 4%;
+    .row{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+         align-items: stretch;
+        width: 80%; 
+ }
+ </style>
+ {{script|safe}}
+{% block title%} Login {% endblock %}
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+{%block content %}
+	<ul class="navbar-nav mr-auto">
+		<li class="nav-item active"> 
+          <h2 style="color:blue;">Em<span>Track</span> </h2>
+		</li> <br/>
+		<li class="nav-item "> 
+          <a class="nav_link" href="#">Recent </a>
+		</li> <br/> <br/>
+		<li class="nav-item dropdown"> 
+          <a href="#" class="nav_link dropdown-toggle"   data-toggle="dropdown">Views </a>
+          <div class="dropdown-menu">
+             <a class="dropdown-item" href="#">Computation</a>
+             <a class="dropdown-item" href="{#}">Employees</a>
+             <a class="dropdown-item" href="#">Link 3</a>
+             <div class="dropdown-divider"></div>
+          </div>
+		</li> <br/>
+		<li class="nav-item active"> 
+          <a class="nav_link" href="#">Others </a>
+		</li>
+	</ul>
+	<ul class="navbar-nav ml-auto">
+	<form class="form-group" action="www.google.com">
+       <input class="form-control-sm" type="text" placeholder="search">
+       <button class="btn-sm btn-info" type="submit">Search</button>	
+	</form>
+	</ul>
+	{% endblock %}
+</nav>
+<br/>
+
+<form class="form-control-sm" method="post" style="width: 400px;">
+    {% csrf_token %}
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: grey;">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red;">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <button type="submit">Login</button>
+    <p>Already have an account? <a href="{%url 'register' %}">sign up here</a></p>
+  </form>
+        
+
+
+</body>
+</html>
+

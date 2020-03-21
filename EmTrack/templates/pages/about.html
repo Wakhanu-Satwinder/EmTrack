@@ -1,0 +1,93 @@
+{%extends 'pages/base.html'%}
+{%block title%} About {%endblock%}
+{%load static%}
+<style type="text/css">
+	.bg{
+  background-image:url("/static/img/blog.jpg");
+  /*opacity:0.6;*/
+  height: 60%;
+  width: 100%;
+  background-position:center;
+  background-repeat: no-repeat;
+  background-size:cover;
+  } 
+</style>
+<body>
+<div class="bg">
+{%block content%}
+ <div class="container">
+      <h1 style="color:blue;">About <small>EmTrack</small></h1>
+
+      <h4>What You should know <img src="{%static 'img/search.png'%}" style="height: 35px;" /> </h4>
+
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Purpose</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Developer</a>
+        </li>
+      </ul>
+
+      <div class="tab-content" role="tablist">
+        <div class="tab-pane active" id="home" role="tabpanel">
+         <img src="{%static 'img/power.png'%}"  style="height: 35px;"/>
+         <p>EmTrack is an online website that enables to track the statistics of employee details in the county government. <br/></p>
+          <p>Also one can be able to identify the available jobs in the county government and their net salary if interested plus other news.<br/></p>
+          <p>It is among the best webapp that can be used by data scientists for data visualization and prediction of future growth of their business</p>
+
+
+          <div id="accordion" role="tablist">
+        <div class="card">
+          <div class="card-header" role="tab" id="headingOne">
+            <h5 class="mb-0">
+              <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Vision
+              </a>
+            </h5>
+          </div>
+
+          <div id="collapseOne" class="collapse show" data-parent="#accordion" role="tabpanel" aria-labelledby="headingOne">
+            <div class="card-body">
+              <p>To be the most efficient solution</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" role="tab" id="headingOne">
+            <h5 class="mb-0">
+              <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Mission
+              </a>
+            </h5>
+          </div>
+
+          <div id="collapseOne" class="collapse show" data-parent="#accordion" role="tabpanel" aria-labelledby="headingOne">
+            <div class="card-body">
+              <p>Effective service provision</p>
+            </div>
+          </div>
+        </div>
+        </div>
+
+
+          <a class="fa-facebook" href="#"></a>
+          
+        </div>
+        <div class="tab-pane" id="profile" role="tabpanel">
+         <p>The site was built by <b>Wakhanu Satwinder<i>(a freelancer developer)</i></b> in February &copy 2020 whose main purpose was to enforce the accountability in the counties.It was built using python django-framework and JavaScript</p>
+          <p>If interested you can contact the developer <a href="{%url 'contact_us'%}">here</a></p>
+          <img src="{%static 'img/service.png'%}"  style="height: 35px;"/>
+          
+        </div>
+        
+        
+      </div>
+      </div>
+
+
+{%endblock%}
+</div>
+</body>
+</html>

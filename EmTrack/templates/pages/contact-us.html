@@ -1,0 +1,39 @@
+{%extends "pages/base.html"%}
+
+<html>
+<head>
+{%load crispy_forms_tags%}
+{% load static %}
+
+
+ <!--Fussioncharts-->
+<script type="text/javascript" src="js/jquery-2.1.4.js"></script>   
+<script src="gaddafi/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'fusioncharts/js/fusioncharts.js' %}"></script>
+<script type="text/javascript" src="{% static 'fusioncharts/js/fusioncharts.charts.js' %}"></script>
+<script type="text/javascript" src="{% static 'fusioncharts/js/themes/fusioncharts.theme.zune.js' %}"></script>
+ <script type="text/javascript" src="{%static 'fusioncharts/..'%}"></script>
+ <link rel="stylesheet" href="{% static 'css/emtrack.css' %}">
+
+ </style>
+ {{script|safe}}
+<title>{% block title%} Contact Us {% endblock %} </title>
+</head>
+<body>
+{%block content%}
+
+<!--creating containers-->
+<div class="container-fluid">
+   
+      
+      <form method="POST" style="margin-top: 10px;">
+	     {%csrf_token%}
+	     {{form.as_p}}
+       
+	     <input type="submit" value="submit">
+    </form>
+    
+    </div>
+{%endblock%}
+</body>
+</html>

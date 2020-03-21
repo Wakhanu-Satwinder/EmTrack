@@ -1,0 +1,75 @@
+{% extends 'pages/base.html' %}
+
+{%load static%}
+  
+{%block title%} Employees{%endblock%}
+<body>
+<!--<div class="bg" style="height: 100%">-->
+
+{%block content%}
+<!--<a href="/employees/create" class="addlink">Add New Employee</a>-->
+
+<div class="container-fluid" >
+ <div class="row">
+   <!--Side bar
+      
+      <div class="sidebar">
+        {%block sidebar%}
+         <a href="{%url 'home' %}">Home</a>
+         <a class="active" href="{%url 'employees' %}">Employees</a>
+         <a href="{%url 'calc' %}">Computations</a>
+         <a href="{%url 'about' %}">About</a>
+         <a href="{%url 'contact_us' %}">Contact Us</a>
+
+         {%endblock%}
+     </div>-->
+
+
+    <!--Main Content-->
+<div class="content">
+
+{% if object_list %}
+<div class="table-responsive-sm" style="margin-top: 10px;">
+  <table class="table table-primary table-striped table-hover" id="employee_list_table" frame="hsides" 
+  rules="cols">
+  <thead class="thead-dark">
+    <tr>
+      <!--<th>Email</th>-->
+      <th >First Name</th>
+      <th>Last Name</th>
+      <th>Phone #</th>
+      <!--<th>Manager #</th>-->
+      <th>Job</th>
+      <th>Hire Date</th>
+      <th>Salary</th>
+      <th>Commission %</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  {% for employee in object_list %}
+    <tr>
+      <!--<td><a href="/employees/update/{{ employee.employee_id }}/">{{ employee.email }}</a></td>-->
+      <td>{{ employee.first_name }}</td>
+      <td>{{ employee.last_name }}</td>
+      <td>{{ employee.phone_number }}</td>
+      <!--<td>{{ employee.manager }}</td>-->
+      <td>{{ employee.job }}</td>
+      <td>{{ employee.hire_date }}</td>
+      <td>{{ employee.salary }}</td>
+      <td>{{ employee.commission_pct }}</td>
+      <td><a href="{%url 'calc'%}">View</a></td>
+    </tr>
+  {% endfor %}
+  </table>
+{% else %}
+  <p>No employees found.</p>
+  </div>
+{% endif %}
+</div>
+</div>
+</div>
+{%endblock%}
+
+<!--</div>-->
+</body>
+</html>

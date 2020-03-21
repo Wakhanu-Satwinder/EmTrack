@@ -1,0 +1,20 @@
+
+{% if object_list %}
+
+  {% for employee in object_list %}
+    
+      <!--<td><a href="/employees/update/{{ employee.employee_id }}/">{{ employee.email }}</a></td>-->
+      <p>{{ employee.first_name }}</p>
+      <p>{{ employee.last_name }}</p>
+      <p>{{ employee.phone_number }}</p>
+      <p>{{ employee.job }}</p>
+      <p>{{ employee.hire_date }}</p>
+      <p>{{ employee.salary }}</p>
+      <p>{{ employee.commission_pct }}</p>
+     <p><a href="/employees/view/{{ employee.employee_id }}/">View</a></p>
+    
+  {% endfor %}
+  </table>
+{% else %}
+  <p>No employees found.</p>
+{% endif %}

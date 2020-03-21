@@ -1,0 +1,25 @@
+<{%extends "pages/base.html"%}
+{%load static%}
+
+{%block title%}details{%endblock%}
+
+{{script|safe}}
+{%block content%}
+<div class="some-page-wrapper">
+
+                <div id="bar"  class="column">
+                   
+                    <div id="chart-1">FusionCharts XT will load here!</div>
+                         {{output|safe }}
+                    </div>
+                    
+                <br/>
+                <br/>
+ 
+                 <div  id="pie" class="column">
+                   <div id="chart-2" >FusionCharts XT will load here!</div>
+                        {{output2|safe }}
+                        
+                    </div>
+                </div>
+{%endblock%}
