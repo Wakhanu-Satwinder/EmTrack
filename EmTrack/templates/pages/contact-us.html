@@ -1,39 +1,38 @@
 {%extends "pages/base.html"%}
-
-<html>
-<head>
 {%load crispy_forms_tags%}
 {% load static %}
-
-
- <!--Fussioncharts-->
-<script type="text/javascript" src="js/jquery-2.1.4.js"></script>   
-<script src="gaddafi/jquery.min.js"></script>
-<script type="text/javascript" src="{% static 'fusioncharts/js/fusioncharts.js' %}"></script>
-<script type="text/javascript" src="{% static 'fusioncharts/js/fusioncharts.charts.js' %}"></script>
-<script type="text/javascript" src="{% static 'fusioncharts/js/themes/fusioncharts.theme.zune.js' %}"></script>
- <script type="text/javascript" src="{%static 'fusioncharts/..'%}"></script>
- <link rel="stylesheet" href="{% static 'css/emtrack.css' %}">
-
- </style>
- {{script|safe}}
-<title>{% block title%} Contact Us {% endblock %} </title>
-</head>
+{% block title%} Contact Us {% endblock %}
 <body>
 {%block content%}
-
 <!--creating containers-->
-<div class="container-fluid">
-   
-      
-      <form method="POST" style="margin-top: 10px;">
+<div class="bg">
+    <div class="row">
+
+    <div class="col-md-4">
+    	<img src="{%static 'css/fontawesome/svgs/brands/facebook.svg'%}" alt="facebook" style="width:60px; height: 60px;"/> 
+    	<img src="{%static 'css/fontawesome/svgs/brands/twitter.svg'%}" alt="twitter" style="width:60px; height: 60px; background-color: blue; margin-left: 10px;"/>
+    	<br/>
+    	<img src="{%static 'css/fontawesome/svgs/brands/pinterest.svg'%}" alt="pinterest" style=" width:60px; height: 60px;" />
+    	<br/>
+    	<img src="{%static 'css/fontawesome/svgs/brands/git.svg'%}" alt="git" style=" width:60px; height: 60px; margin-left: 10px;" />
+    	
+    	<img src="{%static 'css/fontawesome/svgs/brands/github.svg'%}" alt="github" style=" width:60px; height: 60px; background-color:purple;" />
+    	<br/>
+    </div>
+
+   <div class="col-md-4">
+      <fieldset style="margin-top: 30px; padding-top:10px;">
+        <form method="POST" >
 	     {%csrf_token%}
 	     {{form.as_p}}
-       
-	     <input type="submit" value="submit">
-    </form>
-    
+       <button class="btn btn-primary btn-circle">Submit</button>
+        </form>
+      </fieldset>  
     </div>
+
+ <div class="col-md-4"></div>
+</div>
+</div>
 {%endblock%}
 </body>
 </html>

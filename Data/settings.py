@@ -39,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'EmTrack',
     'rest_framework',
+    #'social_django', 
     #'main.apps.MainConfig',
-    "crispy_forms",
+    'crispy_forms',
 
     # Local
     #'EmTrack.apps.EmtrackConfig', # new
@@ -55,6 +56,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
+    #'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'Data.urls'
@@ -71,6 +74,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                #'social_django.context_processors.backends',  # <--
+                #'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -141,6 +147,19 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-LOGIN_REDIRECT_URL='home'
+LOGIN_REDIRECT_URL='profile'
+#LOGIN_URL = 'login'
+#LOGOUT_URL = 'signout'
+LOGOUT_REDIRECT_URL = "signout"
 
 EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+
+'''AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)'''
+#SOCIAL_AUTH_GITHUB_KEY = 'fa52a439ab5d81408e65'
+#SOCIAL_AUTH_GITHUB_SECRET = 'b126fc18975ca9b79043127cc9e652e7e1de8a96'

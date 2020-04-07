@@ -3,8 +3,8 @@ import numpy as np
 import csv 
 import sqlalchemy
 from django.urls import path
-from django.http import HttpResponse
-from django.shortcuts import render, render_to_response,redirect
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, render_to_response,redirect,get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.db.models import Avg,Min,Max,Sum
@@ -23,8 +23,20 @@ import pandas.io.sql as psql
 #from bokeh.transform import factor_cmap
 from django.contrib.messages import constants as message_constants  
 from .models import Employee
-from .forms import RegisterForm,ContactForm,LoginForm
+from django.contrib import auth
+from django.contrib.auth.models import User 
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+#from .forms import RegisterForm,ContactForm,LoginForm
+from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse
+
+from django.contrib.auth.decorators import login_required
+#from . import helpers
+
 from django.core.mail import send_mail
+from .forms import CustomUserCreationForm,ContactForm
+
 
 class EmployeeListView(ListView):
     model = Employee
@@ -36,6 +48,7 @@ class BlockListView(ListView):
 
 
  #DISPLAYING ON VIEWS PAGE
+@login_required(login_url='login')
 def views(request):
     # Chart data is passed to the `dataSource` parameter, as dict, in the form of key-value pairs.
     dataSource = {}
@@ -45,6 +58,9 @@ def views(request):
         "captionFontColor":"Blue",
         "captionFontBold":"1",
             "subCaption": "County Government",
+            "subCaptionFont":"Arial",
+            "subCaptionFontColor":"#Red",
+            "subCaptionFontBold":"0",
             "xAxisName": "Job Title",
             "yAxisName": "Max_salary (In Ksh)",
             #"numberPrefix": "Kshs.",
@@ -95,6 +111,7 @@ def views(request):
     return render_to_response('pages/views.html', {'output': pie2D.render(),'output2': line.render(),'output3': column2D.render()})
 
 #FOR DISPLAYING COLUMN GRAPH TO CHARTS PAGE
+@login_required(login_url='login')
 def charts(request):
     # Chart data is passed to the `dataSource` parameter, as dict, in the form of key-value pairs.
     dataSource = {}
@@ -124,50 +141,93 @@ def charts(request):
 
 
 #FOR DISPLAYING COLUMN GRAPH TO HOME PAGE
+@login_required(login_url='login')
 def home(request):
     # Chart data is passed to the `dataSource` parameter, as dict, in the form of key-value pairs.
 
-    return render_to_response('pages/home.html',{})	
+    return render_to_response('pages/home.html',{})
+def account(request):
 
-	
-#FOR USER REGISTRATION FORMS	
+    return render_to_response('pages/account.html',{})	
+
+
+
+#...
 def register(request):
-    if request.method== "POST":
-        form=RegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-        return redirect("login")
+    if request.method == 'POST':
+        f = CustomUserCreationForm(request.POST)
+        if f.is_valid():
+            f.save()
+            messages.success(request, 'Account created successfully')
+            return redirect('register')
+ 
     else:
-        form=RegisterForm()
-        return render(request,"pages/register.html",{"form":form})
+        f = CustomUserCreationForm()
+ 
+    return render(request, 'pages/register.html', {'form': f})
+
 #FFOR USER LOGIN
-def login(request):
-    if request.method== "POST":
-        form=LoginForm(request=request,data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            #messages=form.cleaned_data['message']
-            user = authenticate(username=username, password=raw_password)
-            if user is not None:
-                login(request,user)
-                messages.info(request,"You Are Now logged in as {username}")
-                #return render(request,"pages/base.html",context={"form":form})
-                return redirect("home")
-            '''else:
-                messages.error(request,"Invalid username or password")
-            form.save()
-            home(request, user)'''  
+'''def signin(request):
+    if request.method == 'POST':
+        #f = LoginForm(request.POST)
+        username = request.POST['username']
+        password =  request.POST['password']
+        post = User.objects.filter(username=username)
+        if post:
+            username = request.POST.get['username']
+            request.session['username'] = username
+            messages.success(request, 'Login successfully')
+            return redirect('home')
     else:
-        messages.error(request,"Invalid username or password")
-        form=LoginForm()
-        return render(request,"Registration/login.html",context={"form":form})
+         #f = LoginForm()
+        return render(request, 'Registration/login.html', {})''' 
+
+
+#New Login
+def login(request):
+    #if request.user.is_authenticated():
+      
+ 
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = auth.authenticate(username=username, password=password)
+ 
+        if user is not None:
+            # correct username and password login the user
+            auth.login(request, user)
+            request.session['username'] = username
+            messages.success(request,'Login successfully')
+            return redirect('profile')
+ 
+        else:
+            messages.error(request,'Error wrong username/password')
+ 
+    return render_to_response('Registration/login.html',{})
+@login_required(login_url='login')
+def profile(request):
+    '''if request.session.has_key('username'):
+        posts = request.session['username']
+        query = User.objects.filter(username=posts)''' 
+    messages.success(request,'Login successfully')
+    return render(request, 'pages/profile.html', {})
+    '''else:
+        return render(request, 'Registration/login.html', {})'''
+ 
+@login_required(login_url='login') 
+def signout(request):
+    auth.logout(request)
+    try:
+        del request.session['username']
+        request.session.flush()
+    except:
+        messages.info(request,"You Logged out Successfully")
+        return render(request,"Registration/logout.html",{})
+    #return HttpResponse("<strong>You are now logged out.</strong")
+
 
 #COMPUTATIONS
+@login_required(login_url='login')
 def comp(response):
     connection = pg.connect("host='localhost' dbname=Datadb user=postgres password=staminah@8")
     q=Employee.objects.all().aggregate(Avg('salary'))
@@ -183,9 +243,9 @@ def comp(response):
     	,"output5":t,"output6":u})
 
 #CONTACT PAGE
-def contact_us(response):
-    if response.method=='POST':
-    	form=ContactForm(response.POST)
+def contact_us(request):
+    if request.method=='POST':
+    	form=ContactForm(request.POST)
     	if form.is_valid():
     			#send email code goes here
     		sender_name=form.cleaned_data['name']
@@ -195,11 +255,12 @@ def contact_us(response):
     		send_mail('New Enquiry',message,sender_email,['windersonrolles@gmail.com'])
 
     	#return HttpResponse('Thanks For Contacting Us!')
-    	return render(response,"pages/contact-us.html",{'form':form})
+    	return render(request,"pages/contact-us.html",{'form':form})
     else:
     	form=ContactForm()
-    return render(response,'pages/contact-us.html',{'form':form})
+    return render(request,'pages/contact-us.html',{'form':form})
 
+@login_required(login_url='login')
 def about(request):
     return render(request,'pages/about.html',{})
     

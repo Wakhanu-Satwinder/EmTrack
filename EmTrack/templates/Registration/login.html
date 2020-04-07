@@ -1,25 +1,43 @@
 {%extends 'pages/base.html'%}
+{%block title%}Login{%endblock%}
 {%load static%}
+{%load crispy_forms_tags%}
 <body>
 {%block content%}
-<form class="form-control-sm" method="post" style="width: 400px;">
+
+<div class="bg">
+<div class="row">
+<div class="col-md-4">
+  
+</div>
+
+<div class="col-md-4">
+
+<fieldset style="height: 350px; margin-top: 40px; padding-top: 10px;">
+<form class="form-control-sm" method="POST" action="{%url 'login'%}">
     {% csrf_token %}
+    <!--{{form|crispy}}-->
     {% for field in form %}
       <p>
-        {{ field.label_tag }}<br>
+        <p style="color: grey">{{ field.label_tag }}</p>
         {{ field }}
         {% if field.help_text %}
           <small style="color: grey">{{ field.help_text }}</small>
         {% endif %}
         {% for error in field.errors %}
           <p style="color: red">{{ error }}</p>
-        {% endfor %}
+        {%endfor%}
       </p>
     {% endfor %}
-    <button type="submit">Login</button>
-    <p>Already have an account? <a href="{%url 'register' %}">sign up here</a></p>
+    <button type="submit" class="btn btn-success">Login</button>
+    <p style="color: grey">Already have an account? <a href="{%url 'register' %}">sign up here</a></p>
   </form>
-        
+</fieldset>
+</div>
+<div class="col-md-4">
+</div>
+</div>
+</div>  
 
 {%endblock%}
 </body>

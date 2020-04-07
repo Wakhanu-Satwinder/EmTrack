@@ -11,20 +11,7 @@
 
 <div class="container-fluid" >
  <div class="row">
-   <!--Side bar
-      
-      <div class="sidebar">
-        {%block sidebar%}
-         <a href="{%url 'home' %}">Home</a>
-         <a class="active" href="{%url 'employees' %}">Employees</a>
-         <a href="{%url 'calc' %}">Computations</a>
-         <a href="{%url 'about' %}">About</a>
-         <a href="{%url 'contact_us' %}">Contact Us</a>
-
-         {%endblock%}
-     </div>-->
-
-
+   
     <!--Main Content-->
 <div class="content">
 
@@ -35,6 +22,7 @@
   <thead class="thead-dark">
     <tr>
       <!--<th>Email</th>-->
+      <th>id</th>
       <th >First Name</th>
       <th>Last Name</th>
       <th>Phone #</th>
@@ -49,6 +37,7 @@
   {% for employee in object_list %}
     <tr>
       <!--<td><a href="/employees/update/{{ employee.employee_id }}/">{{ employee.email }}</a></td>-->
+      <td>{{ employee.employee_id }}</td>
       <td>{{ employee.first_name }}</td>
       <td>{{ employee.last_name }}</td>
       <td>{{ employee.phone_number }}</td>

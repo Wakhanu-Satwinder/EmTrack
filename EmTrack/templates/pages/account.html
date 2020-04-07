@@ -1,0 +1,40 @@
+{%extends 'pages/base.html'%}
+{%block title%}Account{%endblock%}
+{%load static%}
+<body>
+
+{%block content%}
+
+<div class="bg">
+
+<div class="row">
+<div class="col-md-4">
+</div>
+<div class="col-md-4">
+	<fieldset>
+ <span class="fas fa-dice" style="margin-left: 70px;"></span>
+ <h5>Welcome to EmTrack </h5><br/>
+  <button class="btn btn-outline-danger btn-circle" value="submit" 
+            onclick="window.location='{%url 'register'%}'">Create new Account<span class="fa fa-plus"></span></button> <br/> 
+  <p style="margin-left:70px; margin-top: 20px;"><b>Or</b></p>
+  <button class="btn btn-outline-primary btn-circle" style="margin-left:40px;" value="submit" 
+            onclick="window.location='{%url 'login'%}'">Login<span class="fas fa-lock"></span></button> <br/>
+
+  <p style="margin-left:70px; margin-top: 20px;"><b>Or</b></p>
+  <button class="btn btn-outline-success btn-circle" style="margin-left:20px;" value="submit" onclick="window.location='{%url 'profile'%}'">View Profile<span class="fas fa-eye"></span></button>
+
+</fieldset>
+</div>
+<div class="col-md-4">
+
+</div>
+	
+</div>
+	
+</div>
+</div>
+
+{%endblock%}
+
+</body>
+</html>

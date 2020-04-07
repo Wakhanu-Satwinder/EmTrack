@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Profile</title>
+</head>
+<body>
+
+<h1>Profile Page </h1><a href="#">Logout</a>
+{%if query%}
+  {% for post in query %}
+          <h2>Welcome <span style="color: #F46404;">{{ post.username}} </span></h2> 
+           <p>Email id: {{ post.email}} </p>
+           <p>First Name: {{ post.first_name}} </p>
+           <p>Last Name: {{ post.last_name}} </p>
+  {% endfor %}
+
+</body>
+</html>

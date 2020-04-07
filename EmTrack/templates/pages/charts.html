@@ -1,12 +1,12 @@
 {% extends 'pages/base.html'%}
-
-{% load static %}
 {%block title%}Charts{%endblock%}
+{% load static %}
+
 <body>
 {%block content%}
 <!--Page Content-->
 <div class="container-fluid">
-<h1>Visualisations</h1>
+
         
         <script type="text/javascript">
             FusionCharts && FusionCharts.ready(function () {
@@ -29,6 +29,7 @@
         };
     </script>
     <div align="center">
+    <h1>Visualisations</h1>
     <label style="padding: 0px 5px !important;"><b>Select The Chart Type</b></label>
     </div>
     <br/>
@@ -51,14 +52,13 @@
     <label style="padding: 0px 5px !important;">
             <input type="radio" name="div-size" value="bar2d"/>Bar 2D
     </label>
-    <div style="width: 100%; display: block;" align="center">
+    <!--<div style="width: 100%; display: block;" align="center">
 
-                <div id="bar"  class="column">
+                <div id="bar"  class="column">-->
                    
                     <div id="chart-3"></div>
                          {{output|safe }}
-                    </div>
-                </div>
+                    
         </div>
          <hr>
         </div>

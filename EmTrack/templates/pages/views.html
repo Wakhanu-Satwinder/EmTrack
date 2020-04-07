@@ -1,52 +1,33 @@
-{% extends 'pages/base.html' %}
+{% extends 'pages/base.html'%}
 <!--{%load static%}
 <link rel="stylesheet" href="{% static 'css/emtrack.css' %}">-->
+{%load static%}
 {% block title%} Views {%endblock%}
 <body>
-<div class="bg">
+
 {%block content %}
-  
-  <div class="some-page-wrapper">
-  <div class="container-fluid">
+<div class="bg" style="background-image:url('/static/img/back6.jpg');">
   <div class="row">
    
       <div class="col-md-4">
-            <div id="chart-1" style="margin-top: 4px;">{{output|safe }}</div>
+            <div id="chart-1" style="margin-top: 10px;">{{output|safe }}</div>
 
       </div>
       <div class="col-md-4">
-             <div id="chart-3">{{output3|safe }}</div>
+             <div id="chart-3" style="margin-top: 10px;">{{output3|safe }}</div>
       </div>
       <div class="col-md-4">
-             <div id="chart-2" >{{output2|safe }}</div>
+             <div id="chart-2" style="margin-top: 10px;" >{{output2|safe }}</div>
       </div>
    </div>
-  <!--<div class="container">
-           <div class="row">
-                   <div id="pie" class="col-lg" style="float: right; width: 50%;">
-                   
-                    <div id="chart-1" style="margin-top: 4px;">{{output|safe }}</div>   
-                    <br/>
-                    <div id="chart-3">{{output3|safe }}</div>
-                         
-                   </div>
-                   <br/>
-                   <div id="bar" class="col-lg"  style="float: left; width: 50%;">
-                       <div id="chart-2" >{{output2|safe }}</div>
-                        
-                   </div> 
 
-
-                </div>
-            </div>-->
-            </div>
-           </div>
+</div>
+      
       
 
   <!--</div>-->
 
-
 {% endblock%}
-</div>
+
 </body>
 </html>

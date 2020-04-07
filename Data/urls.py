@@ -15,6 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+#from rest_framework import generics,viewsets,routers
+from EmTrack import views as EmTrack_views
+from django.contrib.auth import views as auth_views
+#router = routers.SimpleRouter()
+#router.register(r'logout',auth_views.logout)
 
 admin.site.site_header='EmTrack Admin'
 
@@ -22,8 +27,12 @@ urlpatterns = [
     path('admin/', admin.site.urls,name='admin'),
     path('EmTrack/', include('EmTrack.urls')), # new
     path('',include("django.contrib.auth.urls")),
+   
     #path('', include("main.urls")), 
     path('api/', include('api.urls')), # new
+    #path('login/',EmTrack_views.register,name="login"),
+    #path(r'^logout/$',auth_views.logout,name="logout"),
+   #url(r'^oauth/', include('social_django.urls', namespace='social')),
 
 
 ]

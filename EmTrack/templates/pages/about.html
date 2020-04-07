@@ -1,21 +1,11 @@
 {%extends 'pages/base.html'%}
 {%block title%} About {%endblock%}
 {%load static%}
-<style type="text/css">
-	.bg{
-  background-image:url("/static/img/blog.jpg");
-  /*opacity:0.6;*/
-  height: 60%;
-  width: 100%;
-  background-position:center;
-  background-repeat: no-repeat;
-  background-size:cover;
-  } 
-</style>
+
 <body>
 <div class="bg">
 {%block content%}
- <div class="container">
+ 
       <h1 style="color:blue;">About <small>EmTrack</small></h1>
 
       <h4>What You should know <img src="{%static 'img/search.png'%}" style="height: 35px;" /> </h4>

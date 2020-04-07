@@ -6,11 +6,13 @@
 <meta http-equiv="X-UA-Compartible" content="IE=edge,chrome=1">
 <meta name="HandheldFriendly" content="true">
 {% load static %}
+
 <link rel="stylesheet" type="text/css" href="{% static 'css/basic.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css'%}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome-4.0.3.css'%}"/>
    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css'%}"/>
+   <link rel="stylesheet" type="text/css" href="{%static 'css/fontawesome/css/all.css'%}">
 
    <link rel="stylesheet" href="{% static 'css/emtrack.css' %}">
  <link rel="stylesheet" href="{% static 'css/rest_framework/...' %}">
@@ -23,26 +25,61 @@
 
 <!--<link rel="stylesheet" href="{% static 'css/ui.css'%}" type="text/css"/>
 <link rel="stylesheet" href="{% static 'css/sidebar.css'%}" type="text/css"/>
-<link rel="stylesheet" href="{% static 'css/font-awesome.css'%}" type="text/css"/>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css" integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
-<script type="text/javascript" src="{%static 'js/bootstrap.min.js'%}"></script>
-<link rel="stylesheet" href="{% static 'EmTrack/css/bootstrap.min.css' %}" type="tex/css"/>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js" integrity="sha384–7aThvCh9TypR7fIc2HV4O/nFMVCBwyIUKL8XCtKE+8xgCgl/PQGuFsvShjr74PBp" crossorigin="anonymous"></script>
+>
 <link href="http://cdn.pydata.org/bokeh/release/bokeh-1.0.4.min.css" rel="stylesheet" type="text/css">
 <link href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.0.4.min.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet"> 
 <script src="http://cdn.pydata.org/bokeh/release/bokeh-1.0.4.min.js"></script>
 <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.0.4.min.js"></script>-->
+<style type="text/css">
+  fieldset{
+    background-color: lightgrey;
+    width: 300px;
+    height: auto;
+    border: 2px solid green;
+    padding: 50px;
+    margin: 20px;
+    margin-top: 60px;
+  }
+  .bg{
+                background-image:url("/static/img/bg.jpg");
+  /*opacity:0.6;*/
+                height: 570px;
+                width: 100%;
+                background-position:center;
+                background-repeat:no-repeat;
+                background-size:cover;
+  /*filter:blur(8px);
+  -webkit-filter: blur(8px);*/
+           }
+  .icon::after{
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+  }
 
-<!--Fussioncharts
-<script type="text/javascript" src="js/jquery-2.1.4.js"></script>   
-<script src="gaddafi/jquery.min.js"></script>-->
+  .login::after {
+    font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f007";
+  }
+</style>
+
+<!--Fussioncharts-->
 <script type="text/javascript" src="{% static 'fusioncharts/js/fusioncharts.js' %}"></script>
 <script type="text/javascript" src="{% static 'fusioncharts/js/fusioncharts.charts.js' %}"></script>
 <script type="text/javascript" src="{% static 'fusioncharts/js/themes/fusioncharts.theme.zune.js'%}"></script>
  <script type="text/javascript" src="{%static 'fusioncharts/..'%}"></script>
+ <script type="text/javascript">
+   
+   $(document).ready(function(){
+    window.setTimeout(function(){
+      $(".alert").fadeTo(500,0).slideUp(500,function()){
+        $(this).remove();
+      }
+    });
+   },5000);
+ </script>
  <!--<script type="text/javascript" src="{%static 'js/respond.js'%}"></script>
  <script type="text/javascript" src="{%static 'scottjeh/..'%}"></script>-->
  {{script|safe}}
@@ -64,7 +101,7 @@
               <a class="nav-link" href="{%url 'home'%}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{%url 'views'%}">View</a>
+              <a class="nav-link" href="{%url 'views'%}">Views</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{%url 'charts'%}">Charts</a>
@@ -81,28 +118,26 @@
               </div>
             </li>
             <li class="nav-item">
+
             <button class="btn btn-outline-primary btn-circle" value="submit" 
-            onclick="window.location='{%url 'login'%}'">Login</a></button>
-            </li> <br/>
-            <li class="nav-item" >
-            <button class="btn btn-success btn-outline btn-circle" value="submit" 
-            onclick="window.location='{%url 'register'%}'" > Sign Up</button>
+            onclick="window.location='{%url 'account'%}'">Account<span class="icon login"></span></button>
             </li>
+            <li class="nav-item">
+            <button class="btn btn-outline-primary btn-circle" value="submit" 
+            onclick="window.location='{%url 'signout'%}'" style="margin-left:30px;">Logout<span class="icon login"></span></button>
+             <!--<a class="nav-link" href="{%url 'logout'%}">Logout</a>--> 
+            </li>
+            <li class="nav-item">
+              <p style="color: yellow; margin-left:30px;">WELCOME:-{{request.user.username}}</p>
+            </li>
+
+          <br/>
           </ul>
+
         </div>
       </nav>
 
-<!--<div class="bg">
-<div class="col-sm-3">
-<div class="sidebar">
-  
-  <a class="active" href="{%url 'home' %}">Home <i class="fas fa-camera"></i></a>
-  <a href="{%url 'employees' %}">Employees</a>
-  <a href="{%url 'calc' %}">Computations</a>
-  <a href="{%url 'about' %}">About</a>
-  <a href="{%url 'contact_us' %}">Contact Us</a>
-</div>
-</div>-->
+
 {%block content%}
 {%endblock%}
 </div>
