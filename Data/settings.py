@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     #'social_django', 
     #'main.apps.MainConfig',
     'crispy_forms',
+    'django',
 
     # Local
     #'EmTrack.apps.EmtrackConfig', # new
@@ -153,6 +154,7 @@ LOGIN_REDIRECT_URL='profile'
 LOGOUT_REDIRECT_URL = "signout"
 
 EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+
 
 '''AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',

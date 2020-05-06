@@ -17,13 +17,17 @@
   {%endfor%}
 {%endif%}
 
-<fieldset style="height: 400px; margin-top: 40px; padding-top: 10px;">
-<form class="form-control-sm" method="post">
+<!--<fieldset style="height: 400px; margin-top: 40px; padding-top: 10px;">-->
 
+<div class="card" style="margin-top: 20px;height: 320px;">
+  <div class="card-header" style="background-color: blue;color:white;"><h3>Registration</h3></div>
+  <div class="card-body">
+    <form class="form-control-sm" method="post">
     {% csrf_token %}
-    {% for field in form %}
+    <table>{{ form.as_table }}</table>
+    <!--{% for field in form %}
       <p>
-        <small style="color: grey">{{ field.label_tag }}</small><br>
+        <small style="color:black">{{ field.label_tag }}</small><br>
         {{ field }} <br/>
         {% if field.help_text %}
           <small style="color: grey">{{ field.help_text }}</small>
@@ -32,11 +36,14 @@
           <p style="color: red">{{ error }}</p>
         {% endfor %}
       </p>
-    {% endfor %}
-    <button type="submit" class="btn btn-warning">Sign up</button>
+    {% endfor %}-->
+    <button type="submit" class="btn btn-warning">Sign up<span class="fas fa-arrow-alt-circle-right"></span></button>
     <p style="color: grey">Already have an account? <a href="{%url 'login' %}">sign in here</a></p>
   </form>
-</fieldset>
+  </div>
+</div>
+
+<!--</fieldset>-->
 </div>
 <div class="col-sm-4">
 </div>

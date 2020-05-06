@@ -1,4 +1,4 @@
-{%extends "pages/base.html"%}
+{%extends 'pages/base.html'%}
 {%load crispy_forms_tags%}
 {% load static %}
 {% block title%} Contact Us {% endblock %}
@@ -21,13 +21,33 @@
     </div>
 
    <div class="col-md-4">
-      <fieldset style="margin-top: 30px; padding-top:10px;">
+
+      {% if submitted %}
+     <p class="success">
+         Your message was submitted successfully. Thank you.
+    </p>
+
+ {% else %}
+     <form action="" method="post" novalidate>
+     <table>
+         {{ form.as_table }}
+         <tr>
+             <td>&nbsp;</td>
+            <td><input type="submit" value="Submit"></td>
+        </tr>
+     </table>
+    {% csrf_token %}
+     </form>
+{% endif %}
+      <!--<fieldset style="margin-top: 30px; padding-top:10px;">
         <form method="POST" >
 	     {%csrf_token%}
 	     {{form.as_p}}
-       <button class="btn btn-primary btn-circle">Submit</button>
+       <div class="form-actions">
+         <button class="btn btn-primary btn-circle" value="submit">Send</button>
+      </div>
         </form>
-      </fieldset>  
+      </fieldset> --> 
     </div>
 
  <div class="col-md-4"></div>

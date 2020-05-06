@@ -36,6 +36,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.core.mail import send_mail
 from .forms import CustomUserCreationForm,ContactForm
+from collections import OrderedDict
 
 
 class EmployeeListView(ListView):
@@ -63,6 +64,7 @@ def views(request):
             "subCaptionFontBold":"0",
             "xAxisName": "Job Title",
             "yAxisName": "Max_salary (In Ksh)",
+            "exportEnabled":"1",
             #"numberPrefix": "Kshs.",
             "theme": "Gamme1"
         }
@@ -74,8 +76,8 @@ def views(request):
         data['label'] = key.job_title
         data['value'] = key.max_salary
         dataSource['data'].append(data)
-    pie2D = FusionCharts("pie2D", "ex1" , "300", "200", "chart-1", "json", dataSource)
-    line= FusionCharts("line", "ex2" , "300", "200", "chart-2", "json", dataSource)
+    pie2D = FusionCharts("pie2D", "ex1" , "400", "300", "chart-1", "json", dataSource)
+    line= FusionCharts("line", "ex2" , "400", "300", "chart-2", "json", dataSource)
 
 #displaying column bar on the views page
     dataSource = {}
@@ -90,6 +92,7 @@ def views(request):
             "subCaptionFontBold":"0",
             "xAxisName": "Employee",
             "yAxisName": "Salary in (ksh)",
+            "exportEnabled":"1",
             #"font":"Times New Roman",
             #"numberPrefix": "Kshs.",
             "theme": "carbon"
@@ -107,7 +110,7 @@ def views(request):
     # Create an object for the Column 2D chart using the FusionCharts class constructor
     
     
-    column2D = FusionCharts("column2D", "ex3" , "300", "200", "chart-3", "json", dataSource)
+    column2D = FusionCharts("column2D", "ex3" , "400", "300", "chart-3", "json", dataSource)
     return render_to_response('pages/views.html', {'output': pie2D.render(),'output2': line.render(),'output3': column2D.render()})
 
 #FOR DISPLAYING COLUMN GRAPH TO CHARTS PAGE
@@ -116,15 +119,19 @@ def charts(request):
     # Chart data is passed to the `dataSource` parameter, as dict, in the form of key-value pairs.
     dataSource = {}
     dataSource['chart'] = {
+
         "caption": "Available Jobs and their maximum salary",
         "captionFont":"Arial",
         "captionFontColor":"#993300",
         "captionFontBold":"1",
             "subCaption": "County Government",
+            "subCaptionFontColor":"blue",
             "xAxisName": "Job Title",
             "yAxisName": "Max_salary (In Ksh)",
+            "exportEnabled":"1",
+            "enableLegend":"1",
             #"numberPrefix": "Kshs.",
-            "theme": "Gamme1"
+            "theme": "gammel"
         }
  
     dataSource["data"] = []
@@ -136,6 +143,7 @@ def charts(request):
         dataSource['data'].append(data)
 
     # Create an object for the Column 2D chart using the FusionCharts class constructor
+    
     column2D = FusionCharts("column2D", "ex2" , "400", "300", "chart-3", "json", dataSource)
     return render_to_response('pages/charts.html', {'output': column2D.render()})
 
@@ -159,28 +167,12 @@ def register(request):
         if f.is_valid():
             f.save()
             messages.success(request, 'Account created successfully')
-            return redirect('register')
+            return redirect('login')
  
     else:
         f = CustomUserCreationForm()
  
     return render(request, 'pages/register.html', {'form': f})
-
-#FFOR USER LOGIN
-'''def signin(request):
-    if request.method == 'POST':
-        #f = LoginForm(request.POST)
-        username = request.POST['username']
-        password =  request.POST['password']
-        post = User.objects.filter(username=username)
-        if post:
-            username = request.POST.get['username']
-            request.session['username'] = username
-            messages.success(request, 'Login successfully')
-            return redirect('home')
-    else:
-         #f = LoginForm()
-        return render(request, 'Registration/login.html', {})''' 
 
 
 #New Login
@@ -197,7 +189,7 @@ def login(request):
             # correct username and password login the user
             auth.login(request, user)
             request.session['username'] = username
-            messages.success(request,'Login successfully')
+            messages.success(request,'Login successfull')
             return redirect('profile')
  
         else:
@@ -209,7 +201,7 @@ def profile(request):
     '''if request.session.has_key('username'):
         posts = request.session['username']
         query = User.objects.filter(username=posts)''' 
-    messages.success(request,'Login successfully')
+    messages.success(request,'Login successfull')
     return render(request, 'pages/profile.html', {})
     '''else:
         return render(request, 'Registration/login.html', {})'''
@@ -242,7 +234,8 @@ def comp(response):
     return render(response,"pages/computations.html",{"output":q,"output2":p,"output3":r,"output4":s
     	,"output5":t,"output6":u})
 
-#CONTACT PAGE
+#CONTACT PAGE Original
+'''@login_required(login_url='login')
 def contact_us(request):
     if request.method=='POST':
     	form=ContactForm(request.POST)
@@ -258,7 +251,7 @@ def contact_us(request):
     	return render(request,"pages/contact-us.html",{'form':form})
     else:
     	form=ContactForm()
-    return render(request,'pages/contact-us.html',{'form':form})
+    return render(request,'pages/contact-us.html',{'form':form})'''
 
 @login_required(login_url='login')
 def about(request):
@@ -272,3 +265,72 @@ def about(request):
     q=Employee.objects.all().filter('employee_id')
 
     return render(response,'pages/raw.html',{'output':q})'''
+def feedback(request):
+    return render_to_response('pages/feedback.html',{})
+
+
+'''@login_required(login_url='login')
+def contact_us(request):
+    name=''
+    email=''
+    message=''
+
+
+    form= ContactForm(request.POST or None)
+    if form.is_valid():
+        name= form.cleaned_data.get("name")
+        email= form.cleaned_data.get("email")
+        message=form.cleaned_data.get("message")
+
+        if request.user.is_authenticated:
+            subject= str(request.user) + "'s Comment"
+        else:
+            subject= "A Visitor's Comment"
+
+
+        message= name ,'+', " with the email, " ,'+', email,'+', ", sent the following message:\n\n" ,'+', message;
+        send_mail(subject, message,email,['windersonrolles@gmail.com'])
+
+
+        context= {'form': form}
+
+        return render(request, 'pages/contact-us.html', context)
+
+    else:
+        context= {'form': form}
+        return render(request, 'pages/contact-us.html', context)'''
+'''def emailView(request):
+    if request.method == 'GET':
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            from_email = form.cleaned_data['from_email']
+            message = form.cleaned_data['message']
+            try:
+                send_mail(subject, message, from_email, ['admin@example.com'])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return redirect('success')
+    return render(request, "email.html", {'form': form})
+
+def successView(request):
+    return HttpResponse('Success! Thank you for your message.')'''
+ 
+@login_required(login_url='login') 
+def contact_us(request):
+    submitted =False
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+           
+             # assert False
+            #return HttpResponseRedirect('contact/?submitted=False')
+    else:
+        form = ContactForm()
+        if 'submitted' in request.GET:
+            submitted = True
+ 
+    return render(request, 'pages/contact-us.html', {'form': form, 'submitted': submitted}) 

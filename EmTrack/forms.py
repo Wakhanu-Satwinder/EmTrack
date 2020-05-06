@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.shortcuts import get_object_or_404, render
 
 #Original
 '''class RegisterForm(UserCreationForm):
@@ -13,12 +14,13 @@ from django.core.exceptions import ValidationError
 		fields=["username","email","password1","password2"]'''
 
 
-class CustomUserCreationForm(forms.Form):
-    username = forms.CharField(label='Enter Username', min_length=4, max_length=150)
-    email = forms.EmailField(label='Enter email')
-    password1 = forms.CharField(label='Enter password', widget=forms.PasswordInput)
+class CustomUserCreationForm(forms.Form): 
+    username = forms.CharField(label='Username', min_length=4, max_length=15)
+    email = forms.EmailField(label='Email')
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
- 
+
+
     def clean_username(self):
         username = self.cleaned_data['username'].lower()
         r = User.objects.filter(username=username)
@@ -60,10 +62,26 @@ class LoginForm(AuthenticationForm):
 		model=User
 		fields=["username","password1"]'''
 
-class ContactForm(forms.Form):
-    name=forms.CharField(max_length=100)
-    email=forms.EmailField()
+'''class ContactForm(forms.Form):
+    name=forms.CharField(max_length=100, label="Name")
+    email=forms.EmailField( label="Email")
     message=forms.CharField(widget=forms.Textarea(attrs={'rows':3,'cols':30}))
    
-		
+
+class ContactForm(forms.Form):
+    name= forms.CharField(max_length=500, label="Name")
+    email= forms.EmailField(max_length=500, label="Email")
+    comment= forms.CharField(label='',widget=forms.Textarea(
+                        attrs={'placeholder': 'Enter your comment here'}))
+class ContactForm(forms.Form):
+    
+    subject = forms.CharField(required=True)
+    from_email = forms.EmailField(required=True)
+    message = forms.CharField(widget=forms.Textarea(attrs={'rows':3,'cols':30}), required=True)	'''	
+
+class ContactForm(forms.Form):
+    yourname = forms.CharField(max_length=100, label='Your Name')
+    email = forms.EmailField(required=False,label='Your e-mail address')
+    subject = forms.CharField(max_length=100)
+    message = forms.CharField(widget=forms.Textarea(attrs={'rows':3,'cols':30}), required=True)
 		

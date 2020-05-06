@@ -1,6 +1,7 @@
 # books/urls.py
 from django.urls import path,include
-from .views import EmployeeListView,views,home,charts,comp,account,contact_us,about,register,login,BlockListView,signout,profile
+from .views import EmployeeListView,views,home,charts,comp,account,contact_us,about,register,login,BlockListView,signout,profile#,emailView, successView
+
 from . import views
 
 
@@ -24,6 +25,9 @@ urlpatterns = [
     path('contact-us/', views.contact_us, name='contact_us'),
     path('profile/', views.profile, name='profile'),
     path('about/', views.about, name='about'),
+    #path('email/', emailView, name='email'),
+    #path('success/', successView, name='success'),
+
     #path('raw/', views.raw, name='raw')
     #path('all/', views.showemployees, name='showemployees')
 

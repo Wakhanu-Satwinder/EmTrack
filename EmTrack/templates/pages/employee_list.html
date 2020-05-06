@@ -3,50 +3,48 @@
 {%load static%}
   
 {%block title%} Employees{%endblock%}
-<body>
-<!--<div class="bg" style="height: 100%">-->
+
 
 {%block content%}
 <!--<a href="/employees/create" class="addlink">Add New Employee</a>-->
-
-<div class="container-fluid" >
+<div class="bg" style="background-image:url('/static/img/back2.jpg');">
  <div class="row">
    
     <!--Main Content-->
-<div class="content">
-
+<div class="col-md-2"></div>
+<div class="col-md-8">
 {% if object_list %}
 <div class="table-responsive-sm" style="margin-top: 10px;">
   <table class="table table-primary table-striped table-hover" id="employee_list_table" frame="hsides" 
   rules="cols">
   <thead class="thead-dark">
     <tr>
-      <!--<th>Email</th>-->
-      <th>id</th>
+      <!--<th>Email</th>
+      <th>id</th>-->
       <th >First Name</th>
       <th>Last Name</th>
       <th>Phone #</th>
       <!--<th>Manager #</th>-->
       <th>Job</th>
-      <th>Hire Date</th>
+      <!--<th>Hire Date</th>-->
       <th>Salary</th>
-      <th>Commission %</th>
+      <th>Comm. %age</th>
       <th>Action</th>
     </tr>
   </thead>
   {% for employee in object_list %}
     <tr>
-      <!--<td><a href="/employees/update/{{ employee.employee_id }}/">{{ employee.email }}</a></td>-->
-      <td>{{ employee.employee_id }}</td>
+      <!--<td><a href="/employees/update/{{ employee.employee_id }}/">{{ employee.email }}</a></td>
+      <td>{{ employee.employee_id }}</td>-->
       <td>{{ employee.first_name }}</td>
       <td>{{ employee.last_name }}</td>
       <td>{{ employee.phone_number }}</td>
       <!--<td>{{ employee.manager }}</td>-->
       <td>{{ employee.job }}</td>
-      <td>{{ employee.hire_date }}</td>
+      <!--<td>{{ employee.hire_date }}</td>-->
       <td>{{ employee.salary }}</td>
       <td>{{ employee.commission_pct }}</td>
-      <td><a href="{%url 'calc'%}">View</a></td>
+      <td><a href="{%url 'calc'%}">View</span></a></td>
     </tr>
   {% endfor %}
   </table>
@@ -55,10 +53,9 @@
   </div>
 {% endif %}
 </div>
+<div class="col-md-2"></div>
 </div>
 </div>
 {%endblock%}
 
 <!--</div>-->
-</body>
-</html>

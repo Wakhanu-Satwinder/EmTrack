@@ -30,6 +30,7 @@ urlpatterns = [
    
     #path('', include("main.urls")), 
     path('api/', include('api.urls')), # new
+    
     #path('login/',EmTrack_views.register,name="login"),
     #path(r'^logout/$',auth_views.logout,name="logout"),
    #url(r'^oauth/', include('social_django.urls', namespace='social')),

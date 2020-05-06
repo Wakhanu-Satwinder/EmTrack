@@ -2,12 +2,14 @@
 {%block title%}Charts{%endblock%}
 {% load static %}
 
-<body>
 {%block content%}
 <!--Page Content-->
-<div class="container-fluid">
+<div class="bg" style="background-image:url('/static/img/back2.jpg');">
+<div class="row">
 
-        
+<div class="col-md-4"></div>
+
+<div class="col-md-4">    
         <script type="text/javascript">
             FusionCharts && FusionCharts.ready(function () {
             var trans = document.getElementById("controllers").getElementsByTagName("input");
@@ -28,13 +30,15 @@
             }
         };
     </script>
-    <div align="center">
-    <h1>Visualisations</h1>
-    <label style="padding: 0px 5px !important;"><b>Select The Chart Type</b></label>
-    </div>
+    <!--<div align="center">
+    <h1>Visualisations</h1>-->
+    <fieldset style="width:400px; height: 150px; margin-top: 20px; margin-left: 0px; background-color: blue;">
+    <label style="margin-left: 0px;margin-top: 0px;"><b>Select The Chart Type</b></label>
+
+    <!--</div>-->
     <br/>
-    <div id="controllers" align="center" style="font-family:'Helvetica Neue', Arial; font-size: 14px;">
-    <label style="padding: 0px 5px !important;">
+    <div id="controllers" align="center" style="font-family:'Helvetica Neue', Arial; font-size: 14px; margin-left: 0px;">
+    <label style="padding: 0px 5px !important;margin-left: 0px;">
         <input type="radio" name="div-size" checked value="column2d"/>Column 2D 
     </label>
     <label style="padding: 0px 5px !important;">
@@ -52,6 +56,8 @@
     <label style="padding: 0px 5px !important;">
             <input type="radio" name="div-size" value="bar2d"/>Bar 2D
     </label>
+  </div>
+    </fieldset>
     <!--<div style="width: 100%; display: block;" align="center">
 
                 <div id="bar"  class="column">-->
@@ -59,12 +65,11 @@
                     <div id="chart-3"></div>
                          {{output|safe }}
                     
-        </div>
-         <hr>
-        </div>
+</div>    
+
+ <div class="col-md-4"></div>       
+</div>
         <!--</div>
-      </div>
       </div>-->
+      </div>
 {%endblock%}
-</body>
-</html>
